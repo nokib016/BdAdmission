@@ -1,13 +1,11 @@
-package com.example.asus.bdadmission; // ei page er code gula main page e likhte hbe
+package com.example.asus.bdadmission.Activity; // ei page er code gula main page e likhte hbe
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.asus.bdadmission.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 

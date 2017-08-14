@@ -1,4 +1,4 @@
-package com.example.asus.bdadmission;
+package com.example.asus.bdadmission.Fragment;
 
 
 import android.content.Context;
@@ -14,6 +14,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.asus.bdadmission.Model.Item;
+import com.example.asus.bdadmission.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,7 +33,7 @@ public class Private extends Fragment {
 
 
     ListView privateListView;
-    ArrayList<Item> privatearrayList;
+    ArrayList<Item> arrayList;
     BaseAdapter privateadapter;
     Context context;
 
@@ -46,18 +54,8 @@ public class Private extends Fragment {
 
     private void initializeAll(View v) {
         privateListView = (ListView) v.findViewById(R.id.publicListViewID);
-        privatearrayList = new ArrayList<Item>();
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-        privatearrayList.add(new Item("Dhaka University",new Date(),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher),BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher)));
-
-
+        arrayList = new ArrayList<Item>();
+        loadFirebaseData();
         privateadapter = new BaseAdapter() {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -73,9 +71,7 @@ public class Private extends Fragment {
                 ImageView favouritestar = (ImageView) view.findViewById(R.id.favouriteID);
 
 
-                wishTextView.setText(privatearrayList.get(position).getWishString());
-                Date date = privatearrayList.get(position).getDate();
-                dateTextView.setText(DateFormat.format("dd/MM/yyyy HH:mm:ss a", date));
+                wishTextView.setText(arrayList.get(position).name);
 
                 return view;
             }
@@ -89,17 +85,41 @@ public class Private extends Fragment {
             @Override
             public Object getItem(int position) {
 
-                return privatearrayList.get(position);
+                return arrayList.get(position);
             }
 
             @Override
             public int getCount() {
                 // TODO Auto-generated method stub
-                return privatearrayList.size();
+                return arrayList.size();
             }
         };
 
         privateListView.setAdapter(privateadapter);
+    }
+
+    private void loadFirebaseData() {
+
+        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+        DatabaseReference db=firebaseDatabase.getReference("versity");
+        db.orderByChild("isPrivate").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot i:dataSnapshot.getChildren()
+                        ) {
+                    Item item=i.getValue(Item.class);
+                    arrayList.add(item);
+                    System.out.println("value found..."+item.toString());
+                }
+                privateadapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

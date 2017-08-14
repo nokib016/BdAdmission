@@ -1,23 +1,19 @@
-package com.example.asus.bdadmission;
+package com.example.asus.bdadmission.Activity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.asus.bdadmission.Model.result_notice_item;
+import com.example.asus.bdadmission.R;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ResultNotice extends AppCompatActivity {
 
