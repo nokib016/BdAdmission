@@ -10,11 +10,13 @@
         android:weightSum="6">
 
         <ListView
+            android:id="@+id/categorylistId"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
 
         <WebView
+            android:id="@+id/webId"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4.5">
