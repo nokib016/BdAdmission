@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "77384388218",
+    "firebase_url": "https://admisionbd.firebaseio.com",
+    "project_id": "admisionbd",
+    "storage_bucket": "admisionbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77384388218:android:4a21e740fc6125b9",
+        "android_client_info": {
+          "package_name": "com.example.asus.bdadmission"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77384388218-amqumpn97mo3vcdr650nfak7br2lr0bc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asus.bdadmission",
+            "certificate_hash": "0b8c075fb953ab5c8730536d6710550443b4d504"
+          }
+        },
+        {
+          "client_id": "77384388218-jjcnm10985tbrm4q1ko34k7kflom57gb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0QfF7fD0H5iEzBdJXC6QV17-JPt41Ryo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77384388218-jjcnm10985tbrm4q1ko34k7kflom57gb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
