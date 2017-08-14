@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.asus.bdadmission.Public">
+    tools:context="com.example.asus.bdadmission.Fragment.Public">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

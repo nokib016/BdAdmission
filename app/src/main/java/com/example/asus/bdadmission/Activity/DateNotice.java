@@ -1,4 +1,4 @@
-package com.example.asus.bdadmission;
+package com.example.asus.bdadmission.Activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.asus.bdadmission.Model.date_notice_item;
+import com.example.asus.bdadmission.R;
 
 import java.util.ArrayList;
 

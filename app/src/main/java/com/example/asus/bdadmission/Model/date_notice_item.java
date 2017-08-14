@@ -1,4 +1,4 @@
-package com.example.asus.bdadmission;
+package com.example.asus.bdadmission.Model;
 
 /**
  * Created by ASUS on 8/14/2017.
