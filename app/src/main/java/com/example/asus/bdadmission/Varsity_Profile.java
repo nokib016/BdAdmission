@@ -1,8 +1,8 @@
 package com.example.asus.bdadmission;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -31,8 +30,10 @@ public class Varsity_Profile extends AppCompatActivity {
     private void initializeAll() {
 
         web = (WebView) findViewById(R.id.webId);
+        web.getSettings().setJavaScriptEnabled(true);
         try {
-            web.loadUrl(URLEncoder.encode("https://admisionbd.firebaseapp.com//sub_view.html?versityname=জগন্নাথ বিশ্ববিদ্যালয়&key=-KrUWdCKmtGV82B8KPhp","UTF-8"));
+            //web.loadUrl(URLEncoder.encode("https://admisionbd.firebaseapp.com/sub_view.html?versityname=জগন্নাথ বিশ্ববিদ্যালয়&key=-KrUWdCKmtGV82B8KPhp","UTF-8"));
+            web.loadUrl("https://admisionbd.firebaseapp.com/sub_view.html?versityname=জগন্নাথ বিশ্ববিদ্যালয়&key=-KrUWdCKmtGV82B8KPhp");
         } catch (Exception e) {
             e.printStackTrace();
         }
