@@ -42,6 +42,7 @@ public class Varsity_Profile extends AppCompatActivity {
         loadFirebaseData();
         web = (WebView) findViewById(R.id.webId);
         web.getSettings().setJavaScriptEnabled(true);
+        web.getSettings().setBuiltInZoomControls(true);
 
         subCategoryList = (ListView) findViewById(R.id.categorylistId);
         subCategoryArrayList = new ArrayList<VersityInfo>();
