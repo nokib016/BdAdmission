@@ -2,6 +2,7 @@ package com.example.asus.bdadmission.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.asus.bdadmission.Activity.Varsity_Profile;
 import com.example.asus.bdadmission.Model.Item;
 import com.example.asus.bdadmission.R;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +64,7 @@ public class Private extends Fragment {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
+            public View getView(final int position, View view, ViewGroup viewGroup) {
                 if (view == null) {
                     view = inflater.inflate(R.layout.wish_list_item, null);
                 }
@@ -69,7 +72,16 @@ public class Private extends Fragment {
                 TextView dateTextView = (TextView) view.findViewById(R.id.wishlistDateTextView);
                 ImageView logoImageView=(ImageView) view.findViewById(R.id.imageId);
                 ImageView favouritestar = (ImageView) view.findViewById(R.id.favouriteID);
+                LinearLayout row= (LinearLayout) view.findViewById(R.id.row);
 
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getContext(), Varsity_Profile.class);
+                        intent.putExtra("versity_name",arrayList.get(position).name);
+                        startActivity(intent);
+                    }
+                });
 
                 wishTextView.setText(arrayList.get(position).name);
 
