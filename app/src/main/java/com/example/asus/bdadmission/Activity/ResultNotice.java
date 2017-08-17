@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.example.asus.bdadmission.Model.result_notice_item;
 import com.example.asus.bdadmission.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -26,11 +31,12 @@ public class ResultNotice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_notice);
         initializeAll();
+        loadFirebaseData();
     }
     private void initializeAll() {
         resultListView = (ListView) findViewById(R.id.resultListId);
         resultArrayList = new ArrayList<result_notice_item>();
-        resultArrayList.add(new result_notice_item("University Of Asia Pacific","Result is published for Pharmacy and CSE .Please Check the University profile"));
+      /*  resultArrayList.add(new result_notice_item("University Of Asia Pacific","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("American International University ","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("BRAC","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("Dhaka University","Result is published for Pharmacy and CSE .Please Check the University profile"));
@@ -43,7 +49,7 @@ public class ResultNotice extends AppCompatActivity {
         resultArrayList.add(new result_notice_item("BUTEX","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("Rajhshahi University","Result is published for Pharmacy and CSE .Please Check the University profile"));
 
-
+*/
 
         resultAdapter = new BaseAdapter() {
 
@@ -57,8 +63,8 @@ public class ResultNotice extends AppCompatActivity {
                 TextView NameTextView = (TextView) view.findViewById(R.id.rendernameId);
                 TextView NoticeTextView = (TextView) view.findViewById(R.id.rendernoticeId);
 
-                NameTextView.setText(resultArrayList.get(position).getUniName());
-                NoticeTextView.setText(resultArrayList.get(position).getResultNotice());
+                NameTextView.setText(resultArrayList.get(position).getVersity());
+                NoticeTextView.setText(resultArrayList.get(position).getNotice());
 
                 return view;
             }
@@ -83,6 +89,30 @@ public class ResultNotice extends AppCompatActivity {
         };
 
         resultListView.setAdapter(resultAdapter);
+
+    }
+
+    private void loadFirebaseData() {
+
+        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+        DatabaseReference db=firebaseDatabase.getReference("notice/all-type/result_notice");
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot i:dataSnapshot.getChildren()
+                        ) {
+                    result_notice_item item=i.getValue(result_notice_item.class);
+                    resultArrayList.add(item);
+                    System.out.println("value found..."+item.toString());
+                }
+                resultAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

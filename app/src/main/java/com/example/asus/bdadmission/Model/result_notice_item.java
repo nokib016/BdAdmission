@@ -5,27 +5,30 @@ package com.example.asus.bdadmission.Model;
  */
 
 public class result_notice_item {
-    private String uniName;
-    private String resultNotice;
+    private String versity;
+    private String notice;
+
+    public result_notice_item() {
+    }
 
     public result_notice_item(String uniName, String resultNotice) {
-        this.uniName = uniName;
-        this.resultNotice = resultNotice;
+        this.versity = uniName;
+        this.notice = resultNotice;
     }
 
-    public String getUniName() {
-        return uniName;
+    public String getVersity() {
+        return versity;
     }
 
-    public void setUniName(String uniName) {
-        this.uniName = uniName;
+    public void setVersity(String uniName) {
+        this.versity = uniName;
     }
 
-    public String getResultNotice() {
-        return resultNotice;
+    public String getNotice() {
+        return notice;
     }
 
-    public void setResultNotice(String resultNotice) {
-        this.resultNotice = resultNotice;
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 }

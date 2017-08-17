@@ -5,27 +5,30 @@ package com.example.asus.bdadmission.Model;
  */
 
 public class other_notice_item {
-    private String othersName;
-    private String othersNotice;
+    private String versity;
+    private String notice;
+
+    public other_notice_item() {
+    }
 
     public other_notice_item(String othersName, String othersNotice) {
-        this.othersName = othersName;
-        this.othersNotice = othersNotice;
+        this.versity = othersName;
+        this.notice = othersNotice;
     }
 
-    public String getOthersName() {
-        return othersName;
+    public String getVersity() {
+        return versity;
     }
 
-    public void setOthersName(String othersName) {
-        this.othersName = othersName;
+    public void setVersity(String versity) {
+        this.versity = versity;
     }
 
-    public String getOthersNotice() {
-        return othersNotice;
+    public String getNotice() {
+        return notice;
     }
 
-    public void setOthersNotice(String othersNotice) {
-        this.othersNotice = othersNotice;
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 }
