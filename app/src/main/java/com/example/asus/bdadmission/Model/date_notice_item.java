@@ -9,6 +9,9 @@ public class date_notice_item {
     private String notice;
     private String versity;
 
+    public date_notice_item() {
+    }
+
     public date_notice_item(String uniNameDate, String dstetNotice) {
         this.notice = uniNameDate;
         this.versity = dstetNotice;

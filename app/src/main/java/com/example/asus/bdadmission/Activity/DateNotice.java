@@ -64,8 +64,8 @@ public class DateNotice extends AppCompatActivity {
                 TextView NameTextView = (TextView) view.findViewById(R.id.daterendernameId);
                 TextView NoticeTextView = (TextView) view.findViewById(R.id.datenoticeId);
 
-                NameTextView.setText(dateArrayList.get(position).getNotice());
-                NoticeTextView.setText(dateArrayList.get(position).getVersity());
+                NameTextView.setText(dateArrayList.get(position).getVersity());
+                NoticeTextView.setText(dateArrayList.get(position).getNotice());
 
                 return view;
             }
