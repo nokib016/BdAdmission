@@ -6,27 +6,27 @@ package com.example.asus.bdadmission.Model;
 
 public class date_notice_item {
 
-    private String uniNameDate;
-    private String dstetNotice;
+    private String notice;
+    private String versity;
 
     public date_notice_item(String uniNameDate, String dstetNotice) {
-        this.uniNameDate = uniNameDate;
-        this.dstetNotice = dstetNotice;
+        this.notice = uniNameDate;
+        this.versity = dstetNotice;
     }
 
-    public String getUniNameDate() {
-        return uniNameDate;
+    public String getNotice() {
+        return notice;
     }
 
-    public void setUniNameDate(String uniNameDate) {
-        this.uniNameDate = uniNameDate;
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
-    public String getDstetNotice() {
-        return dstetNotice;
+    public String getVersity() {
+        return versity;
     }
 
-    public void setDstetNotice(String dstetNotice) {
-        this.dstetNotice = dstetNotice;
+    public void setVersity(String versity) {
+        this.versity = versity;
     }
 }
