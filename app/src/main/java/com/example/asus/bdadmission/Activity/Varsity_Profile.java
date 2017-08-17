@@ -3,6 +3,8 @@ package com.example.asus.bdadmission.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.asus.bdadmission.Adapter.SubCategory;
 import com.example.asus.bdadmission.Model.Item;
 import com.example.asus.bdadmission.Model.Sub_category_item;
 import com.example.asus.bdadmission.Model.VersityInfo;
@@ -26,10 +29,11 @@ import java.util.ArrayList;
 
 public class Varsity_Profile extends AppCompatActivity {
     WebView web;
-    ListView subCategoryList;
+    RecyclerView categoryRecycleView;
     ArrayList<VersityInfo> subCategoryArrayList;
-    BaseAdapter subCategoryAdapter;
     String versityName="";
+    private SubCategory horizontalAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,58 +48,19 @@ public class Varsity_Profile extends AppCompatActivity {
         web.getSettings().setJavaScriptEnabled(true);
         web.getSettings().setBuiltInZoomControls(true);
 
-        subCategoryList = (ListView) findViewById(R.id.categorylistId);
+        categoryRecycleView = (RecyclerView) findViewById(R.id.categoryRecycleView);
         subCategoryArrayList = new ArrayList<VersityInfo>();
 
+        horizontalAdapter=new SubCategory(subCategoryArrayList,Varsity_Profile.this);
 
-        subCategoryAdapter = new BaseAdapter() {
+        LinearLayoutManager horizontalLayoutManagaer= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        categoryRecycleView.setLayoutManager(horizontalLayoutManagaer);
+        categoryRecycleView.setAdapter(horizontalAdapter);
 
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            @Override
-            public View getView(final int position, View view, ViewGroup viewGroup) {
-                if (view == null) {
-                    view = inflater.inflate(R.layout.sub_category_render, null);
-                }
-                TextView subCategoryTextView = (TextView) view.findViewById(R.id.categoryId);
-                LinearLayout linearLayout= (LinearLayout) view.findViewById(R.id.row);
-                linearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loadVersity(subCategoryArrayList.get(position).url);
-                    }
-                });
-
-                subCategoryTextView.setText(subCategoryArrayList.get(position).name);
-
-
-                return view;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                // TODO Auto-generated method stub
-                return 0;
-            }
-
-            @Override
-            public Object getItem(int position) {
-
-                return subCategoryArrayList.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                // TODO Auto-generated method stub
-                return subCategoryArrayList.size();
-            }
-        };
-
-        subCategoryList.setAdapter(subCategoryAdapter);
 
     }
 
-    private void loadVersity(String url){
+    public void loadVersity(String url){
         try {
             //web.loadUrl(URLEncoder.encode("https://admisionbd.firebaseapp.com/sub_view.html?versityname=জগন্নাথ বিশ্ববিদ্যালয়&key=-KrUWdCKmtGV82B8KPhp","UTF-8"));
             web.loadUrl("https://admisionbd.firebaseapp.com/sub_view.html?"+url);
@@ -116,7 +81,7 @@ public class Varsity_Profile extends AppCompatActivity {
                     subCategoryArrayList.add(item);
                     System.out.println("value found..."+item.toString());
                 }
-                subCategoryAdapter.notifyDataSetChanged();
+                horizontalAdapter.notifyDataSetChanged();
             }
 
             @Override

@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.asus.bdadmission.Activity.Varsity_Profile;
 import com.example.asus.bdadmission.Model.Item;
 import com.example.asus.bdadmission.R;
@@ -71,6 +73,14 @@ public class Private extends Fragment {
                 TextView wishTextView = (TextView) view.findViewById(R.id.wishlistItemTextView);
                 TextView dateTextView = (TextView) view.findViewById(R.id.wishlistDateTextView);
                 ImageView logoImageView=(ImageView) view.findViewById(R.id.imageId);
+
+                Glide
+                        .with(getContext())
+                        .load(arrayList.get(position).logoLink)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .fitCenter()
+                        .into(logoImageView);
+
                 ImageView favouritestar = (ImageView) view.findViewById(R.id.favouriteID);
                 LinearLayout row= (LinearLayout) view.findViewById(R.id.row);
 

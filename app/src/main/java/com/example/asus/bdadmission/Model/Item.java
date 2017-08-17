@@ -8,15 +8,15 @@ import java.util.Date;
 public class Item {
 	public String name;
 	public long date;
-    public String logo;
+    public String logoLink;
 
     public Item() {
     }
 
-    public Item(String name, long date, String logo) {
+    public Item(String name, long date, String logoLink) {
         this.name = name;
         this.date = date;
-        this.logo = logo;
+        this.logoLink = logoLink;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Item {
         return "Item{" +
                 "name='" + name + '\'' +
                 ", date=" + date +
-                ", logo='" + logo + '\'' +
+                ", logo='" + logoLink + '\'' +
                 '}';
     }
 }
