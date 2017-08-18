@@ -21,8 +21,9 @@
 
             <ImageView
                 android:id="@+id/imageId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
                 app:srcCompat="?android:attr/actionModePasteDrawable" />
         </LinearLayout>
 

@@ -54,7 +54,9 @@
                app:srcCompat="@drawable/notice"
                android:gravity="center_horizontal|center_vertical"
                app:layout_constraintLeft_toLeftOf="parent"
-               app:layout_constraintRight_toRightOf="parent" />
+               app:layout_constraintRight_toRightOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               android:layout_marginTop="8dp" />
 
            <ImageView
                android:id="@+id/imageView8"
