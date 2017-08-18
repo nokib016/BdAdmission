@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class ResultNotice extends AppCompatActivity {
     ListView resultListView;
     ArrayList<result_notice_item> resultArrayList;
     BaseAdapter resultAdapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class ResultNotice extends AppCompatActivity {
     }
     private void initializeAll() {
         resultListView = (ListView) findViewById(R.id.resultListId);
+        back = (ImageView) findViewById(R.id.backbuttonId);
         resultArrayList = new ArrayList<result_notice_item>();
       /*  resultArrayList.add(new result_notice_item("University Of Asia Pacific","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("American International University ","Result is published for Pharmacy and CSE .Please Check the University profile"));
@@ -90,6 +93,13 @@ public class ResultNotice extends AppCompatActivity {
 
         resultListView.setAdapter(resultAdapter);
 
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void loadFirebaseData() {
@@ -114,5 +124,13 @@ public class ResultNotice extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
+        startActivity(intent);*/
+        finish();
     }
 }

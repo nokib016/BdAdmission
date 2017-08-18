@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class OtherNotice extends AppCompatActivity {
     ListView otherListView;
     ArrayList<other_notice_item> otherArrayList;
     BaseAdapter otherAdapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class OtherNotice extends AppCompatActivity {
 
     private void initializeAll() {
         otherListView = (ListView) findViewById(R.id.otherListId);
+        back = (ImageView) findViewById(R.id.backbuttonId);
         otherArrayList = new ArrayList<other_notice_item>();
        /* otherArrayList.add(new other_notice_item("University Of Asia Pacific","Pharmacy Admission test - 17/10/2017 other"));
         otherArrayList.add(new other_notice_item("American International University ","Pharmacy Admission test - 17/10/2017"));
@@ -91,6 +94,13 @@ public class OtherNotice extends AppCompatActivity {
 
         otherListView.setAdapter(otherAdapter);
 
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     private void loadFirebaseData() {
 
@@ -114,5 +124,13 @@ public class OtherNotice extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
+        startActivity(intent);*/
+        finish();
     }
 }

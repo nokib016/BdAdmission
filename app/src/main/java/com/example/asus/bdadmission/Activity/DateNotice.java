@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class DateNotice extends AppCompatActivity {
     ListView dateListView;
     ArrayList<date_notice_item> dateArrayList;
     BaseAdapter dateAdapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class DateNotice extends AppCompatActivity {
 
     private void initializeAll() {
         dateListView = (ListView) findViewById(R.id.dateListId);
+        back = (ImageView) findViewById(R.id.backbuttonId);
         dateArrayList = new ArrayList<date_notice_item>();
        /* dateArrayList.add(new date_notice_item("University Of Asia Pacific","Pharmacy Admission test - 17/10/2017"));
         dateArrayList.add(new date_notice_item("American International University ","Pharmacy Admission test - 17/10/2017"));
@@ -91,6 +94,12 @@ public class DateNotice extends AppCompatActivity {
 
        dateListView.setAdapter(dateAdapter);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void loadFirebaseData() {
@@ -115,5 +124,12 @@ public class DateNotice extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
+        startActivity(intent);*/
+        finish();
     }
 }
