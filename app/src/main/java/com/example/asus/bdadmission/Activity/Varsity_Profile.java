@@ -1,15 +1,19 @@
 package com.example.asus.bdadmission.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +37,7 @@ public class Varsity_Profile extends AppCompatActivity {
     ArrayList<VersityInfo> subCategoryArrayList;
     String versityName="";
     private SubCategory horizontalAdapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class Varsity_Profile extends AppCompatActivity {
         web = (WebView) findViewById(R.id.webId);
         web.getSettings().setJavaScriptEnabled(true);
         web.getSettings().setBuiltInZoomControls(true);
+        back= (ImageView) findViewById(R.id.backbuttonId);
 
         categoryRecycleView = (RecyclerView) findViewById(R.id.categoryRecycleView);
         subCategoryArrayList = new ArrayList<VersityInfo>();
@@ -56,6 +62,13 @@ public class Varsity_Profile extends AppCompatActivity {
         LinearLayoutManager horizontalLayoutManagaer= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         categoryRecycleView.setLayoutManager(horizontalLayoutManagaer);
         categoryRecycleView.setAdapter(horizontalAdapter);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              onBackPressed();
+            }
+        });
 
 
     }
@@ -90,5 +103,13 @@ public class Varsity_Profile extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
+        startActivity(intent);*/
+        finish();
     }
 }
