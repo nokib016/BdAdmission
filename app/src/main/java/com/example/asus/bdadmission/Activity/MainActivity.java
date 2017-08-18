@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.asus.bdadmission.BackgroudTask.AppBackground;
 import com.example.asus.bdadmission.Fragment.Favourite;
 import com.example.asus.bdadmission.Fragment.Private;
 import com.example.asus.bdadmission.Fragment.Public;
@@ -40,10 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionMenu fam;
     private com.github.clans.fab.FloatingActionButton fabEdit, fabDelete, fabAdd;
 
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        intent=new Intent(this, AppBackground.class);
+        startService(intent);
 
         fabAdd = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab2);
         fabDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab3);
@@ -85,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        stopService(intent);
+
+        super.onStop();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
