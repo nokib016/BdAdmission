@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,6 @@ public class Public extends Fragment {
     ArrayList<Item> arrayList;
     BaseAdapter adapter;
     Context context;
-
     public Public() {
         // Required empty public constructor
     }
@@ -60,7 +60,7 @@ public class Public extends Fragment {
     private void initializeAll(View v) {
         wishListView = (ListView) v.findViewById(R.id.publicListViewID);
         arrayList = new ArrayList<Item>();
-        
+
         loadFirebaseData();
 
         adapter = new BaseAdapter() {
@@ -94,6 +94,29 @@ public class Public extends Fragment {
                     }
                 });
 
+
+                final ImageView  img1 = (ImageView) view.findViewById(R.id.favouriteID);
+                final  ImageView img2 =(ImageView) view.findViewById(R.id.favouriteID2);
+                img1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // your code here
+                        //       Toast.makeText(TouchpointmockupsActivity.this, "test", Toast.LENGTH_SHORT).show();
+                        // RelativeLayout rl1 = (RelativeLayout) findViewById(R.id.rl1);
+                        img1.setVisibility(View.GONE);
+                        //RelativeLayout rl2 = (RelativeLayout) findViewById(R.id.rl2);
+                        img2.setVisibility(View.VISIBLE);
+                    }
+                });
+
+
+                img2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        img2.setVisibility(View.GONE);
+                        img1.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 wishTextView.setText(arrayList.get(position).name);
 
                 return view;
@@ -119,6 +142,8 @@ public class Public extends Fragment {
         };
 
         wishListView.setAdapter(adapter);
+
+
     }
 
     private void loadFirebaseData() {

@@ -81,6 +81,28 @@ public class Private extends Fragment {
                         .fitCenter()
                         .into(logoImageView);
 
+                final ImageView  img1 = (ImageView) view.findViewById(R.id.favouriteID);
+                final  ImageView img2 =(ImageView) view.findViewById(R.id.favouriteID2);
+                img1.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // your code here
+                        //       Toast.makeText(TouchpointmockupsActivity.this, "test", Toast.LENGTH_SHORT).show();
+                        // RelativeLayout rl1 = (RelativeLayout) findViewById(R.id.rl1);
+                        img1.setVisibility(View.GONE);
+                        //RelativeLayout rl2 = (RelativeLayout) findViewById(R.id.rl2);
+                        img2.setVisibility(View.VISIBLE);
+                    }
+                });
+
+
+                img2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        img2.setVisibility(View.GONE);
+                        img1.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 ImageView favouritestar = (ImageView) view.findViewById(R.id.favouriteID);
                 LinearLayout row= (LinearLayout) view.findViewById(R.id.row);
 
