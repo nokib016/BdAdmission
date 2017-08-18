@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.asus.bdadmission.Fragment.Favourite;
 import com.example.asus.bdadmission.Fragment.Private;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ImageView noticefav;
 
     private FloatingActionMenu fam;
     private com.github.clans.fab.FloatingActionButton fabEdit, fabDelete, fabAdd;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        noticefav = (ImageView) findViewById(R.id.notifyid);
         fabAdd = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab2);
         fabDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab3);
         fabEdit = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab1);
@@ -82,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        noticefav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,All_Notice.class));
+            }
+        });
 
     }
 
