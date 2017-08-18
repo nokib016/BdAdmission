@@ -51,14 +51,14 @@ public class Private extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_public, container, false);
+        View v = inflater.inflate(R.layout.fragment_private, container, false);
         initializeAll(v);
         return v;
 
     }
 
     private void initializeAll(View v) {
-        privateListView = (ListView) v.findViewById(R.id.publicListViewID);
+        privateListView = (ListView) v.findViewById(R.id.privateListViewID);
         arrayList = new ArrayList<Item>();
         loadFirebaseData();
         privateadapter = new BaseAdapter() {
