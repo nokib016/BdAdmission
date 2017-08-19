@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         fabDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab3);
         fabEdit = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab1);
         fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
+
+        fam.setMenuButtonColorNormal(R.color.colorPrimaryDark);
+        fam.setMenuButtonColorPressed(R.color.colorPrimaryDark);
+        fam.setClosedOnTouchOutside(true);
+
+
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

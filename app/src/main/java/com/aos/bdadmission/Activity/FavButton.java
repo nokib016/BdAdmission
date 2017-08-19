@@ -24,6 +24,10 @@ public class FavButton extends AppCompatActivity {
         fabEdit = (FloatingActionButton) findViewById(R.id.fab1);
         fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
 
+        fam.setMenuButtonColorNormal(R.color.colorPrimaryDark);
+        fam.setMenuButtonColorPressed(R.color.colorPrimaryLight);
+
+
         //handling menu status (open or close)
         fam.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
             @Override
