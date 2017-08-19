@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:77384388218:android:4a21e740fc6125b9",
+        "mobilesdk_app_id": "1:77384388218:android:8e81c80b7e1b4ba0",
         "android_client_info": {
-          "package_name": "com.example.asus.bdadmission"
+          "package_name": "com.aos.bdadmission"
         }
       },
       "oauth_client": [
         {
-          "client_id": "77384388218-amqumpn97mo3vcdr650nfak7br2lr0bc.apps.googleusercontent.com",
+          "client_id": "77384388218-u7iksakvro2e8oco31nmi7m5bmabpavu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.asus.bdadmission",
+            "package_name": "com.aos.bdadmission",
             "certificate_hash": "0b8c075fb953ab5c8730536d6710550443b4d504"
           }
         },
