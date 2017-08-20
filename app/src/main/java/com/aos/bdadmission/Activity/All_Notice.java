@@ -52,19 +52,7 @@ public class All_Notice extends AppCompatActivity {
     private void initializeAll() {
         allnoticeListView = (ListView) findViewById(R.id.allnoticetListId);
         dateArrayList = new ArrayList<all_notice_item>();
-       /* dateArrayList.add(new date_notice_item("University Of Asia Pacific","Pharmacy Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("American International University ","Pharmacy Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("BRAC","Pharmacy Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("Dhaka University","Pharmacy , EEE , Civil and CSE Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("University Of Asia Pacific","Pharmacy Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("United University","Pharmacy , EEE , Civil and CSE Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("University Of Ulsan","Pharmacy , EEE , Civil and CSE Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("University Of Souteast","Pharmacy , EEE , Civil and CSE Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item(" Green University Of Bangladesh","Pharmacy , EEE , Civil and CSE Admission test - 17/10/2017"));
-        dateArrayList.add(new date_notice_item("NITA","Result is published for Pharmacy and CSE .Please Check the University profile"));
-        dateArrayList.add(new date_notice_item("BUTEX","Result is published for Pharmacy and CSE .Please Check the University profile"));
-        dateArrayList.add(new date_notice_item("Rajhshahi University","Result is published for Pharmacy and CSE .Please Check the University profile"));
-*/
+
 
 
         dateAdapter = new BaseAdapter() {
@@ -110,8 +98,9 @@ public class All_Notice extends AppCompatActivity {
     private void loadFirebaseData() {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-        DatabaseReference db=firebaseDatabase.getReference("notice/all-type/date_announcement_notice");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference db=firebaseDatabase.getReference("notice/all");
+        db.keepSynced(true);
+        db.limitToLast(30).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot i:dataSnapshot.getChildren()

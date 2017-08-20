@@ -108,7 +108,7 @@ public class DateNotice extends AppCompatActivity {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all-type/date_announcement_notice");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        db.limitToLast(30).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot i:dataSnapshot.getChildren()

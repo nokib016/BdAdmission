@@ -3,7 +3,10 @@ package com.aos.bdadmission.BackgroudTask;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
@@ -25,20 +28,31 @@ import java.util.TimerTask;
  * Created by Arif on 8/18/2017.
  */
 
-public class AppBackground extends IntentService {
+public class AppBackground extends Service {
 
 
     public AppBackground() {
-        super(AppBackground.class.getName());
+
     }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
     Timer timer;
     int counter=0;
 
     OfflineInfo offlineInfo;
 
     FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+
+
+
+
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public int onStartCommand(Intent intent,int flags, int startId) {
         System.out.println("Service start..");
         final DatabaseReference dbAllNotification=firebaseDatabase.getReference("notice/all");
         timer=new Timer();
@@ -48,6 +62,7 @@ public class AppBackground extends IntentService {
             public void run() {
 
                 if(!offlineInfo.getLastNotificationId().equalsIgnoreCase("")){
+                    dbAllNotification.keepSynced(true);
                     dbAllNotification.orderByKey().startAt(offlineInfo.getLastNotificationId()).limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -91,7 +106,8 @@ public class AppBackground extends IntentService {
                     });
                 }
             }
-        }, 0, /*10*1000*60*/1000);
+        }, 0, 10*1000*60);
+        return START_STICKY;
     }
     public void createNotification(String versityName,String notice){
 
@@ -116,7 +132,8 @@ public class AppBackground extends IntentService {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_notification_icon_logo)
                         .setContentIntent(intent)
-                        .setContent(contentView);
+                        //.setContent(contentView);
+        .setCustomBigContentView(contentView);
 
 
         NotificationManager mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);

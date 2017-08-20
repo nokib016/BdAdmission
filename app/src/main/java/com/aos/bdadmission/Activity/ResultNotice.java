@@ -107,6 +107,7 @@ public class ResultNotice extends AppCompatActivity {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all-type/result_notice");
+        db.keepSynced(true);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

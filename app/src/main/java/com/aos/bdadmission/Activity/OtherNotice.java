@@ -109,6 +109,7 @@ public class OtherNotice extends AppCompatActivity {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all-type/other_notice");
+        db.keepSynced(true);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

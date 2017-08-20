@@ -1,6 +1,7 @@
 package com.aos.bdadmission.BaseApplication;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.aos.bdadmission.RealmModel.FavouriteVersity;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,10 +15,11 @@ import io.realm.RealmResults;
 public class MyApplication extends Application {
 
   public static HashSet<String> favouriteList=new HashSet<String>();
-
+  public static Context BASE_CONTEXT;
   @Override
   public void onCreate() {
     super.onCreate();
+    BASE_CONTEXT=this;
     Realm.init(this);
     /*RealmConfiguration config = new RealmConfiguration.Builder()
             .deleteRealmIfMigrationNeeded()
@@ -26,7 +28,7 @@ public class MyApplication extends Application {
     //System.out.println("Application start");
     loadAllFavouriteVersity();
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
+    FirebaseDatabase.getInstance().getReference().keepSynced(true);
 
   }
 

@@ -1,6 +1,9 @@
 package com.aos.bdadmission.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +16,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.aos.bdadmission.BackgroudTask.AppBackground;
 import com.aos.bdadmission.Fragment.Favourite;
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        stopService(intent);
+        //stopService(intent);
 
         super.onStop();
 
@@ -159,5 +164,48 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Close BD Admission");
+        builder.setMessage("Are you sure want to close BD Admission?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialogInterface, int which) {
+                finish();
+                dialogInterface.dismiss();
+            }
+
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // I do not need any action here you might
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button bp = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button bn = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(5, 0, 0, 0);
+        bp.setLayoutParams(params);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            bp.setBackground(getResources().getDrawable(R.drawable.rounded_border_color));
+            bn.setBackground(getResources().getDrawable(R.drawable.rounded_border_color));
+
+        }
+
     }
 }

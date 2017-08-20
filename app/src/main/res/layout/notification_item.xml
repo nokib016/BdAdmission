@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/imageId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:srcCompat="@mipmap/ic_notification_icon_logo"
             />
     </LinearLayout>

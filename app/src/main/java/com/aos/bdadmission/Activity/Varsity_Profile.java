@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.aos.bdadmission.Adapter.SubCategory;
+import com.aos.bdadmission.JavascriptInterface.AppJavaScriptInterface;
 import com.aos.bdadmission.Model.VersityInfo;
 import bdadmission.R;
 import com.google.firebase.database.DataSnapshot;
@@ -67,6 +68,7 @@ public class Varsity_Profile extends AppCompatActivity {
         web.getSettings().setBuiltInZoomControls(true);
         web.getSettings().setDomStorageEnabled(true);
         web.getSettings().setLoadsImagesAutomatically(true);
+        web.addJavascriptInterface(new AppJavaScriptInterface(web),"Android");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             web.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
@@ -87,7 +89,7 @@ public class Varsity_Profile extends AppCompatActivity {
     public void loadVersity(String url){
         try {
             //web.loadUrl(URLEncoder.encode("https://admisionbd.firebaseapp.com/sub_view.html?versityname=জগন্নাথ বিশ্ববিদ্যালয়&key=-KrUWdCKmtGV82B8KPhp","UTF-8"));
-            web.loadUrl("https://admisionbd.firebaseapp.com/sub_view.html?"+url);
+            web.loadUrl("file:///android_asset/aos/sub_view.html?"+url);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +98,7 @@ public class Varsity_Profile extends AppCompatActivity {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("sub-category/"+versityName);
+        db.keepSynced(true);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

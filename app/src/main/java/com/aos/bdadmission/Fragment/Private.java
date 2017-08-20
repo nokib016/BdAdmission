@@ -95,6 +95,16 @@ public class Private extends Fragment {
                         .fitCenter()
                         .into(logoImageView);
 
+                LinearLayout row= (LinearLayout) view.findViewById(R.id.row);
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getContext(), Varsity_Profile.class);
+                        intent.putExtra("versity_name",arrayList.get(position).name);
+                        startActivity(intent);
+                    }
+                });
+
                 final ImageView  img1 = (ImageView) view.findViewById(R.id.favouriteID);
                 final  ImageView img2 =(ImageView) view.findViewById(R.id.favouriteID2);
 
