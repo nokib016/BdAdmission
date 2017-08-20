@@ -29,7 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -73,6 +76,16 @@ public class Private extends Fragment {
                 }
                 TextView wishTextView = (TextView) view.findViewById(R.id.wishlistItemTextView);
                 TextView dateTextView = (TextView) view.findViewById(R.id.wishlistDateTextView);
+
+                try {
+                    Date date = new Date(arrayList.get(position).updateTime);
+                    DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                    String dateFormatted = formatter.format(date);
+                    dateTextView.setText("last update : "+dateFormatted);
+                } catch (Exception e) {
+
+                }
+
                 ImageView logoImageView=(ImageView) view.findViewById(R.id.imageId);
 
                 Glide
@@ -158,13 +171,15 @@ public class Private extends Fragment {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("versity");
-        db.orderByChild("isPrivate").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("Check private versity");
                 for (DataSnapshot i:dataSnapshot.getChildren()
                         ) {
                     Item item=i.getValue(Item.class);
-                    arrayList.add(item);
+                    if(item.isPrivate)
+                        arrayList.add(item);
                     System.out.println("value found..."+item.toString());
                 }
                 privateadapter.notifyDataSetChanged();

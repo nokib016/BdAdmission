@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,10 +49,12 @@ public class SubCategory extends RecyclerView.Adapter<SubCategory.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView categoryName;
+        //public Button categoryName;
         public LinearLayout row;
         public MyViewHolder(View itemView) {
             super(itemView);
             categoryName= (TextView) itemView.findViewById(R.id.text_name);
+            //categoryName= (Button) itemView.findViewById(R.id.text_name);
             row= (LinearLayout) itemView.findViewById(R.id.row);
         }
     }

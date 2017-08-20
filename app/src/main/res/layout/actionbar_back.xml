@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:popupTheme="@style/AppTheme"
+    app:theme="@style/ToolbarStyle"
     android:background="#9C27B0"
     android:id="@+id/toolbar">
 
@@ -14,21 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="10">
-
-
-        <ImageView
-            android:id="@+id/backbuttonId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:src="@mipmap/back"
-            android:gravity="center_vertical"
-            android:scaleType="fitCenter"
-            android:layout_gravity="left"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5.36"
+            android:layout_weight="10"
             android:text="BD Admission"
             android:textStyle="bold"
             android:textColor="#ffffff"

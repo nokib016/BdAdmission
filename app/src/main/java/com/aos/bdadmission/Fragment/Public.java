@@ -82,7 +82,7 @@ public class Public extends Fragment {
                     Date date = new Date(arrayList.get(position).updateTime);
                     DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                     String dateFormatted = formatter.format(date);
-                    dateTextView.setText(dateFormatted);
+                    dateTextView.setText("last update : "+dateFormatted);
                 } catch (Exception e) {
 
                 }
@@ -193,7 +193,7 @@ public class Public extends Fragment {
                         ) {
                     Item item=i.getValue(Item.class);
                     arrayList.add(item);
-                    System.out.println("value found..."+item.toString());
+                    //System.out.println("value found..."+item.toString());
                 }
                 adapter.notifyDataSetChanged();
             }

@@ -30,7 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -38,7 +41,7 @@ import java.util.ArrayList;
  */
 public class Favourite extends Fragment {
     ListView favouriteListView;
-    ArrayList<Item> arrayList;
+    ArrayList<Item> arrayList= new ArrayList<Item>();
     BaseAdapter privateadapter;
     Context context;
 
@@ -58,6 +61,9 @@ public class Favourite extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if(isVisibleToUser){
+            if(privateadapter==null){
+                return;
+            }
             loadDatabase();
         }
         super.setUserVisibleHint(isVisibleToUser);
@@ -65,7 +71,7 @@ public class Favourite extends Fragment {
 
     private void initializeAll(View v) {
         favouriteListView = (ListView) v.findViewById(R.id.favouriteListViewID);
-        arrayList = new ArrayList<Item>();
+
 
         privateadapter = new BaseAdapter() {
 
@@ -78,8 +84,19 @@ public class Favourite extends Fragment {
                 }
                 TextView wishTextView = (TextView) view.findViewById(R.id.wishlistItemTextView);
                 TextView dateTextView = (TextView) view.findViewById(R.id.wishlistDateTextView);
-                ImageView logoImageView=(ImageView) view.findViewById(R.id.imageId);
 
+                try {
+                    Date date = new Date(arrayList.get(position).updateTime);
+                    DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                    String dateFormatted = formatter.format(date);
+                    dateTextView.setText("last update : "+dateFormatted);
+                } catch (Exception e) {
+
+                }
+
+
+                ImageView logoImageView=(ImageView) view.findViewById(R.id.imageId);
+                LinearLayout row= (LinearLayout) view.findViewById(R.id.row);
                 Glide
                         .with(getContext())
                         .load(arrayList.get(position).logoLink)
@@ -133,6 +150,14 @@ public class Favourite extends Fragment {
                 });
 
                 wishTextView.setText(arrayList.get(position).name);
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getContext(), Varsity_Profile.class);
+                        intent.putExtra("versity_name",arrayList.get(position).name);
+                        startActivity(intent);
+                    }
+                });
 
                 return view;
             }

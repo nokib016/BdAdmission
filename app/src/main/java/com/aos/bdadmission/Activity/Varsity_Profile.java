@@ -1,10 +1,16 @@
 package com.aos.bdadmission.Activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.webkit.ConsoleMessage;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -25,12 +31,24 @@ public class Varsity_Profile extends AppCompatActivity {
     ArrayList<VersityInfo> subCategoryArrayList;
     String versityName="";
     private SubCategory horizontalAdapter;
-    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.varsity_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+
         versityName=getIntent().getStringExtra("versity_name");
         initializeAll();
     }
@@ -38,10 +56,22 @@ public class Varsity_Profile extends AppCompatActivity {
     private void initializeAll() {
         loadFirebaseData();
         web = (WebView) findViewById(R.id.webId);
+        web.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                Log.d("WebView", consoleMessage.message());
+                return true;
+            }
+        });
         web.getSettings().setJavaScriptEnabled(true);
         web.getSettings().setBuiltInZoomControls(true);
-        back= (ImageView) findViewById(R.id.backbuttonId);
+        web.getSettings().setDomStorageEnabled(true);
+        web.getSettings().setLoadsImagesAutomatically(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            web.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
 
+        //web.getSettings().setSupportZoom(true);
         categoryRecycleView = (RecyclerView) findViewById(R.id.categoryRecycleView);
         subCategoryArrayList = new ArrayList<VersityInfo>();
 
@@ -50,13 +80,6 @@ public class Varsity_Profile extends AppCompatActivity {
         LinearLayoutManager horizontalLayoutManagaer= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         categoryRecycleView.setLayoutManager(horizontalLayoutManagaer);
         categoryRecycleView.setAdapter(horizontalAdapter);
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              onBackPressed();
-            }
-        });
 
 
     }

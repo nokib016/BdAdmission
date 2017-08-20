@@ -23,7 +23,7 @@ public class MyApplication extends Application {
             .deleteRealmIfMigrationNeeded()
             .build();
     Realm.getInstance(config);*/
-    System.out.println("Application start");
+    //System.out.println("Application start");
     loadAllFavouriteVersity();
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
@@ -31,12 +31,12 @@ public class MyApplication extends Application {
   }
 
   public void loadAllFavouriteVersity(){
-    System.out.println("base all favourite check");
+    //System.out.println("base all favourite check");
     Realm realm=Realm.getDefaultInstance();
     RealmResults<FavouriteVersity> allFourite=realm.where(FavouriteVersity.class).findAll();
     for (FavouriteVersity favouriteVersity:allFourite
             ) {
-      System.out.println("base all favourite"+favouriteVersity.name);
+      //System.out.println("base all favourite"+favouriteVersity.name);
       favouriteList.add(favouriteVersity.name);
     }
   }

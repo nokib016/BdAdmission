@@ -4,6 +4,7 @@ public class Item {
 	public String name;
 	public long updateTime;
     public String logoLink;
+    public boolean isPrivate;
 
     public Item() {
     }

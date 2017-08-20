@@ -3,6 +3,7 @@ package com.aos.bdadmission.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +27,26 @@ public class ResultNotice extends AppCompatActivity {
     ListView resultListView;
     ArrayList<result_notice_item> resultArrayList;
     BaseAdapter resultAdapter;
-    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_notice);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         initializeAll();
         loadFirebaseData();
     }
     private void initializeAll() {
         resultListView = (ListView) findViewById(R.id.resultListId);
-        back = (ImageView) findViewById(R.id.backbuttonId);
         resultArrayList = new ArrayList<result_notice_item>();
       /*  resultArrayList.add(new result_notice_item("University Of Asia Pacific","Result is published for Pharmacy and CSE .Please Check the University profile"));
         resultArrayList.add(new result_notice_item("American International University ","Result is published for Pharmacy and CSE .Please Check the University profile"));
@@ -92,14 +101,6 @@ public class ResultNotice extends AppCompatActivity {
         };
 
         resultListView.setAdapter(resultAdapter);
-
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
     }
 
     private void loadFirebaseData() {

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView noticefav;
 
     private FloatingActionMenu fam;
-    private com.github.clans.fab.FloatingActionButton fabEdit, fabDelete, fabAdd;
+    private com.github.clans.fab.FloatingActionButton announcementNoticeFab, fabDelete, fabAdd;
 
     Intent intent;
 
@@ -52,15 +52,15 @@ public class MainActivity extends AppCompatActivity {
         noticefav = (ImageView) findViewById(R.id.notifyid);
         fabAdd = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab2);
         fabDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab3);
-        fabEdit = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab1);
+        announcementNoticeFab = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab1);
         fam = (FloatingActionMenu) findViewById(R.id.fab_menu);
 
-        fam.setMenuButtonColorNormal(R.color.colorPrimaryDark);
+       /* fam.setMenuButtonColorNormal(R.color.colorPrimaryDark);
         fam.setMenuButtonColorPressed(R.color.colorPrimaryDark);
-        fam.setClosedOnTouchOutside(true);
+        fam.setClosedOnTouchOutside(true);*/
 
 
-        fabEdit.setOnClickListener(new View.OnClickListener() {
+        announcementNoticeFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,DateNotice.class));

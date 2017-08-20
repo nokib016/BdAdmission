@@ -3,6 +3,7 @@ package com.aos.bdadmission.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +27,28 @@ public class OtherNotice extends AppCompatActivity {
     ListView otherListView;
     ArrayList<other_notice_item> otherArrayList;
     BaseAdapter otherAdapter;
-    ImageView back;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_notice);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
         initializeAll();
         loadFirebaseData();
     }
 
     private void initializeAll() {
         otherListView = (ListView) findViewById(R.id.otherListId);
-        back = (ImageView) findViewById(R.id.backbuttonId);
         otherArrayList = new ArrayList<other_notice_item>();
        /* otherArrayList.add(new other_notice_item("University Of Asia Pacific","Pharmacy Admission test - 17/10/2017 other"));
         otherArrayList.add(new other_notice_item("American International University ","Pharmacy Admission test - 17/10/2017"));
@@ -94,13 +104,6 @@ public class OtherNotice extends AppCompatActivity {
 
         otherListView.setAdapter(otherAdapter);
 
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
     }
     private void loadFirebaseData() {
 
