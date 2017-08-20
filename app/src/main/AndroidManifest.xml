@@ -16,12 +16,11 @@
             android:name="com.aos.bdadmission.Activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name="com.aos.bdadmission.Activity.FavButton" />
         <activity android:name="com.aos.bdadmission.Activity.DateNotice" />
@@ -37,13 +36,22 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name="com.aos.bdadmission.Activity.All_Notice">
-        </activity>
-        <service android:name="com.aos.bdadmission.BackgroudTask.AppBackground">
-        </service>
+        <activity android:name="com.aos.bdadmission.Activity.All_Notice"></activity>
+
+        <service android:name="com.aos.bdadmission.BackgroudTask.AppBackground"></service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="514fa94a1d4345472e4bb935c8928674788c0296" />
+
+        <activity
+            android:name="com.aos.bdadmission.Activity.SpalshActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
