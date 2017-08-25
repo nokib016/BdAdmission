@@ -186,13 +186,14 @@ public class Public extends Fragment {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("versity");
-        db.orderByChild("isPrivate").equalTo(false).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.orderByChild("priority").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot i:dataSnapshot.getChildren()
                         ) {
                     Item item=i.getValue(Item.class);
-                    arrayList.add(item);
+                    if(!item.isPrivate)
+                        arrayList.add(item);
                     //System.out.println("value found..."+item.toString());
                 }
                 adapter.notifyDataSetChanged();

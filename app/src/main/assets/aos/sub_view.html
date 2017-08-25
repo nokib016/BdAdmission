@@ -121,11 +121,13 @@
 
     var versityName=getParameterByName('versityname');
     var key=getParameterByName('key');
-    Android.loadData(versityName,key);
-    //$('#content_div').html();
-    function returnData(s){
+    var data=Android.loadData(versityName,key);
+    console.log("final data is "+data);
+    $('#content_div').html(data);
+    /*function returnData(s){
+        console.log("console is "+s);
         $('#content_div').html(s);
-    }
+    }*/
 </script>
 </body>
 </html>

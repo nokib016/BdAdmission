@@ -2,8 +2,14 @@ package com.aos.bdadmission.BaseApplication;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 
+import com.aos.bdadmission.BackgroudTask.AdService;
 import com.aos.bdadmission.RealmModel.FavouriteVersity;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashSet;
@@ -16,9 +22,13 @@ public class MyApplication extends Application {
 
   public static HashSet<String> favouriteList=new HashSet<String>();
   public static Context BASE_CONTEXT;
+  Intent intent;
+  public static Context addContext;
+
   @Override
   public void onCreate() {
     super.onCreate();
+
     BASE_CONTEXT=this;
     Realm.init(this);
     /*RealmConfiguration config = new RealmConfiguration.Builder()
@@ -29,8 +39,12 @@ public class MyApplication extends Application {
     loadAllFavouriteVersity();
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     FirebaseDatabase.getInstance().getReference().keepSynced(true);
+    intent=new Intent(this, AdService.class);
+    startService(intent);
 
   }
+
+
 
   public void loadAllFavouriteVersity(){
     //System.out.println("base all favourite check");

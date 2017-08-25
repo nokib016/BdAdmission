@@ -181,7 +181,7 @@ public class Private extends Fragment {
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("versity");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        db.orderByChild("priority").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("Check private versity");

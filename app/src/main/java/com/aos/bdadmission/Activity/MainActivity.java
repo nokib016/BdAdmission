@@ -27,6 +27,9 @@ import com.aos.bdadmission.Fragment.Public;
 import bdadmission.R;
 import com.github.clans.fab.FloatingActionMenu;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,15 +46,20 @@ public class MainActivity extends AppCompatActivity {
     Intent intent;
 
 
-    /*ArrayList<Item> publicVersityList=new ArrayList<>();
-    ArrayList<Item> privateVersityList=new ArrayList<>();
-    ArrayList<Item> favouriteVersityList=new ArrayList<>();*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
         intent=new Intent(this, AppBackground.class);
         startService(intent);
         noticefav = (ImageView) findViewById(R.id.notifyid);
