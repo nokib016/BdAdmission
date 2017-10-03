@@ -183,6 +183,7 @@ public class Public extends Fragment {
     }
 
     private void loadFirebaseData() {
+        FirebaseDatabase.getInstance().goOnline();
 
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("versity");
@@ -197,6 +198,7 @@ public class Public extends Fragment {
                     //System.out.println("value found..."+item.toString());
                 }
                 adapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override

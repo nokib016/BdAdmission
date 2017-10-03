@@ -178,7 +178,7 @@ public class Private extends Fragment {
     }
 
     private void loadFirebaseData() {
-
+        FirebaseDatabase.getInstance().goOnline();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("versity");
         db.orderByChild("priority").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -193,6 +193,7 @@ public class Private extends Fragment {
                     System.out.println("value found..."+item.toString());
                 }
                 privateadapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override

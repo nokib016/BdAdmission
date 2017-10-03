@@ -2,6 +2,7 @@ package com.aos.bdadmission.Activity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.aos.bdadmission.Adapter.SubCategory;
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.aos.bdadmission.JavascriptInterface.AppJavaScriptInterface;
 import com.aos.bdadmission.Model.VersityInfo;
 import bdadmission.R;
@@ -26,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Varsity_Profile extends AppCompatActivity {
+public class Varsity_Profile extends AppCompatActivity implements AdShow{
     WebView web;
     RecyclerView categoryRecycleView;
     ArrayList<VersityInfo> subCategoryArrayList;
@@ -37,6 +40,7 @@ public class Varsity_Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.varsity_profile);
+        MyApplication.adContext=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,6 +56,17 @@ public class Varsity_Profile extends AppCompatActivity {
 
         versityName=getIntent().getStringExtra("versity_name");
         initializeAll();
+    }
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
     }
 
     private void initializeAll() {
@@ -95,7 +110,7 @@ public class Varsity_Profile extends AppCompatActivity {
         }
     }
     private void loadFirebaseData() {
-
+        FirebaseDatabase.getInstance().goOnline();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("sub-category/"+versityName);
         db.keepSynced(true);
@@ -109,6 +124,7 @@ public class Varsity_Profile extends AppCompatActivity {
                     System.out.println("value found..."+item.toString());
                 }
                 horizontalAdapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override
@@ -125,5 +141,17 @@ public class Varsity_Profile extends AppCompatActivity {
         /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
         startActivity(intent);*/
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

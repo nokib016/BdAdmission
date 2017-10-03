@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.aos.bdadmission.Model.other_notice_item;
 import bdadmission.R;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class OtherNotice extends AppCompatActivity {
+public class OtherNotice extends AppCompatActivity implements AdShow {
 
     ListView otherListView;
     ArrayList<other_notice_item> otherArrayList;
@@ -31,6 +34,7 @@ public class OtherNotice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_notice);
+        MyApplication.adContext=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,6 +49,17 @@ public class OtherNotice extends AppCompatActivity {
 
         initializeAll();
         loadFirebaseData();
+    }
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
     }
 
     private void initializeAll() {
@@ -106,7 +121,7 @@ public class OtherNotice extends AppCompatActivity {
 
     }
     private void loadFirebaseData() {
-
+        FirebaseDatabase.getInstance().goOnline();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all-type/other_notice");
         db.keepSynced(true);
@@ -119,7 +134,9 @@ public class OtherNotice extends AppCompatActivity {
                     otherArrayList.add(item);
                     System.out.println("value found..."+item.toString());
                 }
+                Collections.reverse(otherArrayList);
                 otherAdapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override
@@ -136,5 +153,17 @@ public class OtherNotice extends AppCompatActivity {
         /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
         startActivity(intent);*/
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

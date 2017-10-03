@@ -21,10 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.aos.bdadmission.BackgroudTask.AppBackground;
+import com.aos.bdadmission.BaseApplication.MyApplication;
 import com.aos.bdadmission.Fragment.Favourite;
 import com.aos.bdadmission.Fragment.Private;
 import com.aos.bdadmission.Fragment.Public;
 import bdadmission.R;
+
+import com.aos.bdadmission.Interface.AdShow;
 import com.github.clans.fab.FloatingActionMenu;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
@@ -32,7 +35,7 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdShow{
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MyApplication.adContext=this;
+
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
@@ -111,7 +117,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
+    }
     @Override
     protected void onStop() {
         //stopService(intent);
@@ -135,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -215,5 +233,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.aos.bdadmission.Model.date_notice_item;
 import bdadmission.R;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class DateNotice extends AppCompatActivity {
+public class DateNotice extends AppCompatActivity implements AdShow{
 
     ListView dateListView;
     ArrayList<date_notice_item> dateArrayList;
@@ -32,6 +35,7 @@ public class DateNotice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_notice);
+        MyApplication.adContext=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,6 +48,17 @@ public class DateNotice extends AppCompatActivity {
         });
         initializeAll();
         loadFirebaseData();
+    }
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
     }
 
     private void initializeAll() {
@@ -105,7 +120,7 @@ public class DateNotice extends AppCompatActivity {
     }
 
     private void loadFirebaseData() {
-
+        FirebaseDatabase.getInstance().goOnline();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all-type/date_announcement_notice");
         db.limitToLast(30).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,7 +132,9 @@ public class DateNotice extends AppCompatActivity {
                     dateArrayList.add(item);
                     System.out.println("value found..."+item.toString());
                 }
+                Collections.reverse(dateArrayList);
                 dateAdapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override
@@ -133,5 +150,17 @@ public class DateNotice extends AppCompatActivity {
         /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
         startActivity(intent);*/
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

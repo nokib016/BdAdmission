@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.aos.bdadmission.Model.all_notice_item;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,10 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import bdadmission.R;
 
-public class All_Notice extends AppCompatActivity {
+public class All_Notice extends AppCompatActivity implements AdShow{
 
 
     ListView allnoticeListView;
@@ -33,6 +36,7 @@ public class All_Notice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all__notice);
+        MyApplication.adContext=this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,6 +51,17 @@ public class All_Notice extends AppCompatActivity {
 
         initializeAll();
         loadFirebaseData();
+    }
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
     }
 
     private void initializeAll() {
@@ -96,7 +111,7 @@ public class All_Notice extends AppCompatActivity {
     }
 
     private void loadFirebaseData() {
-
+        FirebaseDatabase.getInstance().goOnline();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         DatabaseReference db=firebaseDatabase.getReference("notice/all");
         db.keepSynced(true);
@@ -109,7 +124,9 @@ public class All_Notice extends AppCompatActivity {
                     dateArrayList.add(item);
                     System.out.println("value found..."+item.toString());
                 }
+                Collections.reverse(dateArrayList);
                 dateAdapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().goOffline();
             }
 
             @Override
@@ -125,5 +142,17 @@ public class All_Notice extends AppCompatActivity {
         /*Intent intent = new Intent(Varsity_Profile.this, MainActivity.class);
         startActivity(intent);*/
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

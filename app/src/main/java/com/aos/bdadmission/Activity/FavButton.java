@@ -6,10 +6,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import bdadmission.R;
+
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class FavButton extends AppCompatActivity {
+public class FavButton extends AppCompatActivity implements AdShow{
 
     private FloatingActionMenu fam;
     private FloatingActionButton fabEdit, fabDelete, fabAdd;
@@ -18,7 +21,7 @@ public class FavButton extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fav_button);
-
+        MyApplication.adContext=this;
         fabAdd = (FloatingActionButton) findViewById(R.id.fab2);
         fabDelete = (FloatingActionButton) findViewById(R.id.fab3);
         fabEdit = (FloatingActionButton) findViewById(R.id.fab1);
@@ -62,6 +65,17 @@ public class FavButton extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void showAd() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(MyApplication.mInterstitialAd.isLoaded()){
+                    MyApplication.mInterstitialAd.show();
+                }
+            }
+        });
+    }
 
     private View.OnClickListener onButtonClick() {
         return new View.OnClickListener() {
@@ -81,5 +95,18 @@ public class FavButton extends AppCompatActivity {
 
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MyApplication.activityPaused();
     }
 }

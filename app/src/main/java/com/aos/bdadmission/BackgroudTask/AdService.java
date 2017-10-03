@@ -6,6 +6,8 @@ import android.os.IBinder;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 
+import com.aos.bdadmission.BaseApplication.MyApplication;
+import com.aos.bdadmission.Interface.AdShow;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -23,19 +25,12 @@ public class AdService extends Service {
         return null;
     }
 
-    public InterstitialAd mInterstitialAd;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 
-       /* mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-9346872776165350/7987195413");
-        mInterstitialAd.loadAd(
-                new AdRequest.
-                        Builder().
-                        build()
 
-        );
+
 
         timer=new Timer();
 
@@ -44,18 +39,13 @@ public class AdService extends Service {
             @Override
             public void run() {
                 System.out.println("Try to load new Add ");
-                if(mInterstitialAd.isLoaded()){
-                    mInterstitialAd.show();
+                if(MyApplication.adContext!=null && MyApplication.isActivityVisible()){
+                    ((AdShow)(MyApplication.adContext)).showAd();
                 }else {
-                    mInterstitialAd.loadAd(
-                            new AdRequest.
-                                    Builder().
-                                    build()
-
-                    );
+                    System.out.println("Ad found null in service class");
                 }
             }
-        }, 0, 10000);*/
+        }, 0, (long)(1.5*60*1000));
 
         return START_STICKY;
     }

@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
+import com.aos.bdadmission.Activity.All_Notice;
 import com.aos.bdadmission.Activity.MainActivity;
 import com.aos.bdadmission.Model.other_notice_item;
 import com.aos.bdadmission.OfflineAppPref.OfflineInfo;
@@ -62,6 +63,7 @@ public class AppBackground extends Service {
             public void run() {
 
                 if(!offlineInfo.getLastNotificationId().equalsIgnoreCase("")){
+                    FirebaseDatabase.getInstance().goOnline();
                     dbAllNotification.keepSynced(true);
                     dbAllNotification.orderByKey().startAt(offlineInfo.getLastNotificationId()).limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -78,6 +80,7 @@ public class AppBackground extends Service {
                                 createNotification(item.getVersity(),item.getNotice());
                                 offlineInfo.saveLastNotificationId(i.getKey());
                                 System.out.println(item.toString());
+                                FirebaseDatabase.getInstance().goOffline();
                             }
                         }
 
@@ -87,6 +90,7 @@ public class AppBackground extends Service {
                         }
                     });
                 }else{
+                    FirebaseDatabase.getInstance().goOnline();
                     dbAllNotification.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,6 +101,7 @@ public class AppBackground extends Service {
                                 createNotification(item.getVersity(),item.getNotice());
                                 offlineInfo.saveLastNotificationId(i.getKey());
                             }
+                            FirebaseDatabase.getInstance().goOffline();
                         }
 
                         @Override
@@ -107,13 +112,14 @@ public class AppBackground extends Service {
                 }
             }
         }, 0, 10*1000*60);
+
         return START_STICKY;
     }
     public void createNotification(String versityName,String notice){
 
 
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        Intent notificationIntent = new Intent(this, All_Notice.class);
 
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -132,11 +138,16 @@ public class AppBackground extends Service {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_notification_icon_logo)
                         .setContentIntent(intent)
-                        //.setContent(contentView);
-        .setCustomBigContentView(contentView);
+                        .setContent(contentView);
+        //.setCustomBigContentView(contentView);
 
 
         NotificationManager mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mNotificationManager.notify((int)System.currentTimeMillis(), mBuilder.build());
     }
+
+
+
+
+
 }

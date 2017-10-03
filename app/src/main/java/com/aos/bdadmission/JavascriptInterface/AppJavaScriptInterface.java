@@ -46,9 +46,10 @@ public class AppJavaScriptInterface {
 
     @JavascriptInterface
     public String loadData(String versityName, String key){
+
         currentData="";
         final Semaphore semaphore = new Semaphore(0);
-
+        FirebaseDatabase.getInstance().goOnline();
         final DatabaseReference databaseReference=firebaseDatabase.getReference("sub-category-details/"+versityName.replaceAll("_"," ")+"/"+key);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -62,6 +63,7 @@ public class AppJavaScriptInterface {
                     currentData=i.getValue().toString();
                     //tcs.setResult(currentData);
                 }
+                FirebaseDatabase.getInstance().goOffline();
                 if(!isFound)
                     currentData="";
                 semaphore.release();
